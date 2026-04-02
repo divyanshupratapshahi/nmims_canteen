@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { useApp } from '../App';
 import { DEFAULT_MENU_IMAGE } from '../constants';
