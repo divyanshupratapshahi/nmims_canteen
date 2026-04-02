@@ -19,7 +19,7 @@ const LAST_SECTION_IMAGE =
   'https://hospitality.nmims.edu/images/facilities/Modern%20Cafeteria.jpg';
 const GALLERY_FEATURE_IMAGE =
   'https://engineering.nmims.edu/wp-content/webp-express/webp-images/uploads/2024/06/1044_SGP_SG18007_2024-1.jpg.webp';
-const GALLERY_SPACE_IMAGE ='assets/image.png';
+const GALLERY_SPACE_IMAGE ='https://github.com/user-attachments/assets/5961a9ed-7049-4554-bbc8-9f8c1b9539ed';
 
 const handleImageError = (event: React.SyntheticEvent<HTMLImageElement>) => {
   if (event.currentTarget.src !== DEFAULT_MENU_IMAGE) {
