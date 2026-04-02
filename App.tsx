@@ -1,6 +1,6 @@
 
 import React, { useState, useEffect, createContext, useContext } from 'react';
-import { HashRouter as Router, Routes, Route, Link, useNavigate } from 'react-router-dom';
+import { HashRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import { MenuItem, CartItem, Order, TableBooking } from './types';
 import { INITIAL_MENU } from './constants';
 import Home from './pages/Home';
@@ -8,7 +8,7 @@ import MenuPage from './pages/MenuPage';
 import CartPage from './pages/CartPage';
 import BookingPage from './pages/BookingPage';
 import AdminDashboard from './pages/AdminDashboard';
-import { ShoppingCart, User, Menu as MenuIcon, X, LayoutDashboard, UtensilsCrossed } from 'lucide-react';
+import { ShoppingCart, Menu as MenuIcon, X, LayoutDashboard, UtensilsCrossed } from 'lucide-react';
 
 // --- Context for State Management ---
 interface AppState {
@@ -30,6 +30,18 @@ interface AppState {
 
 const AppContext = createContext<AppState | undefined>(undefined);
 
+const readStoredState = <T,>(key: string, fallback: T): T => {
+  const savedValue = localStorage.getItem(key);
+  if (!savedValue) return fallback;
+
+  try {
+    return JSON.parse(savedValue) as T;
+  } catch {
+    localStorage.removeItem(key);
+    return fallback;
+  }
+};
+
 export const useApp = () => {
   const context = useContext(AppContext);
   if (!context) throw new Error('useApp must be used within AppProvider');
@@ -38,19 +50,10 @@ export const useApp = () => {
 
 // --- Main App Component ---
 export default function App() {
-  const [menu, setMenu] = useState<MenuItem[]>(() => {
-    const saved = localStorage.getItem('nmims_menu');
-    return saved ? JSON.parse(saved) : INITIAL_MENU;
-  });
+  const [menu, setMenu] = useState<MenuItem[]>(() => readStoredState('nmims_menu', INITIAL_MENU));
   const [cart, setCart] = useState<CartItem[]>([]);
-  const [orders, setOrders] = useState<Order[]>(() => {
-    const saved = localStorage.getItem('nmims_orders');
-    return saved ? JSON.parse(saved) : [];
-  });
-  const [bookings, setBookings] = useState<TableBooking[]>(() => {
-    const saved = localStorage.getItem('nmims_bookings');
-    return saved ? JSON.parse(saved) : [];
-  });
+  const [orders, setOrders] = useState<Order[]>(() => readStoredState('nmims_orders', []));
+  const [bookings, setBookings] = useState<TableBooking[]>(() => readStoredState('nmims_bookings', []));
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   useEffect(() => {
@@ -132,7 +135,7 @@ export default function App() {
         <div className="min-h-screen flex flex-col">
           {/* Header */}
           <header className="bg-black/95 border-b border-red-900/30 sticky top-0 z-50 backdrop-blur-sm">
-            <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <nav className="site-container mx-auto px-4 sm:px-6 lg:px-8">
               <div className="flex items-center justify-between h-20">
                 <Link to="/" className="flex items-center space-x-2">
                   <div className="bg-red-600 p-2 rounded-lg">
@@ -195,7 +198,7 @@ export default function App() {
           </main>
 
           <footer className="bg-black border-t border-zinc-900 py-12">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="site-container mx-auto px-4 sm:px-6 lg:px-8">
               <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
                 <div className="col-span-1 md:col-span-2">
                   <div className="flex items-center space-x-2 mb-4">

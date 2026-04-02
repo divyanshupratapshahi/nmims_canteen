@@ -1,6 +1,8 @@
 
 import React, { useState } from 'react';
 import { useApp } from '../App';
+import { DEFAULT_MENU_IMAGE } from '../constants';
+import { Category, Order } from '../types';
 import { 
   BarChart3, 
   ShoppingBag, 
@@ -16,6 +18,9 @@ import {
   FileText
 } from 'lucide-react';
 
+const ORDER_STATUSES: Order['status'][] = ['Pending', 'Processing', 'Completed', 'Cancelled'];
+const MENU_CATEGORIES: Category[] = ['Snacks', 'Dosa', 'Pizza', 'Chinese', 'Pasta', 'Sandwiches', 'Beverages', 'Meals', 'Fries & Extras'];
+
 const AdminDashboard: React.FC = () => {
   const { 
     menu, orders, bookings, 
@@ -26,12 +31,23 @@ const AdminDashboard: React.FC = () => {
   const [activeTab, setActiveTab] = useState<'Orders' | 'Bookings' | 'Menu'>('Orders');
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [password, setPassword] = useState('');
-  const [newItem, setNewItem] = useState({ name: '', price: 0, category: 'Snacks', image: 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&q=80&w=400' });
+  const [newItem, setNewItem] = useState<{ name: string; price: number; category: Category; image: string }>({
+    name: '',
+    price: 0,
+    category: 'Snacks',
+    image: DEFAULT_MENU_IMAGE,
+  });
+
+  const handleImageError = (event: React.SyntheticEvent<HTMLImageElement>) => {
+    if (event.currentTarget.src !== DEFAULT_MENU_IMAGE) {
+      event.currentTarget.src = DEFAULT_MENU_IMAGE;
+    }
+  };
 
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
-    if (password === 'admin123') setIsAuthenticated(true);
-    else alert('Invalid Credentials. Use admin123');
+    if (password === 'divyanshu007@') setIsAuthenticated(true);
+    else alert('Invalid Credentials. ');
   };
 
   const downloadReport = (type: 'orders' | 'bookings') => {
@@ -83,7 +99,7 @@ const AdminDashboard: React.FC = () => {
               <input 
                 type="password" 
                 required
-                placeholder="Hint: admin123"
+                placeholder="Enter Admin Password"
                 className="w-full bg-black border border-zinc-800 rounded-xl p-4 focus:border-red-600 outline-none transition-all font-bold text-white"
                 value={password}
                 onChange={e => setPassword(e.target.value)}
@@ -100,7 +116,7 @@ const AdminDashboard: React.FC = () => {
 
   return (
     <div className="bg-black min-h-screen py-12">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="site-container mx-auto px-4 sm:px-6 lg:px-8">
         {/* Admin Header */}
         <div className="flex flex-col md:flex-row items-center justify-between mb-12 gap-8">
           <div>
@@ -195,12 +211,13 @@ const AdminDashboard: React.FC = () => {
                           <select 
                             className="bg-black border border-zinc-800 rounded-xl p-2.5 text-xs font-bold text-white focus:outline-none focus:border-red-600 cursor-pointer"
                             value={order.status}
-                            onChange={(e) => updateOrderStatus(order.id, e.target.value as any)}
+                            onChange={(e) => updateOrderStatus(order.id, e.target.value as Order['status'])}
                           >
-                            <option value="Pending">Pending</option>
-                            <option value="Processing">Processing</option>
-                            <option value="Completed">Completed</option>
-                            <option value="Cancelled">Cancelled</option>
+                            {ORDER_STATUSES.map(status => (
+                              <option key={status} value={status}>
+                                {status}
+                              </option>
+                            ))}
                           </select>
                         </td>
                       </tr>
@@ -321,7 +338,12 @@ const AdminDashboard: React.FC = () => {
                     placeholder="99"
                     className="w-full bg-black border border-zinc-800 rounded-2xl p-4 focus:border-red-600 outline-none font-bold text-white transition-all"
                     value={newItem.price}
-                    onChange={e => setNewItem({...newItem, price: parseInt(e.target.value)})}
+                    onChange={e =>
+                      setNewItem({
+                        ...newItem,
+                        price: Number.isNaN(e.target.valueAsNumber) ? 0 : e.target.valueAsNumber,
+                      })
+                    }
                   />
                 </div>
                 <div>
@@ -329,17 +351,13 @@ const AdminDashboard: React.FC = () => {
                   <select 
                     className="w-full bg-black border border-zinc-800 rounded-2xl p-4 focus:border-red-600 outline-none text-white font-bold appearance-none cursor-pointer"
                     value={newItem.category}
-                    onChange={e => setNewItem({...newItem, category: e.target.value as any})}
+                    onChange={e => setNewItem({ ...newItem, category: e.target.value as Category })}
                   >
-                    <option value="Snacks">Snacks</option>
-                    <option value="Dosa">Dosa</option>
-                    <option value="Pizza">Pizza</option>
-                    <option value="Chinese">Chinese</option>
-                    <option value="Pasta">Pasta</option>
-                    <option value="Sandwiches">Sandwiches</option>
-                    <option value="Beverages">Beverages</option>
-                    <option value="Meals">Meals</option>
-                    <option value="Fries & Extras">Fries & Extras</option>
+                    {MENU_CATEGORIES.map(category => (
+                      <option key={category} value={category}>
+                        {category}
+                      </option>
+                    ))}
                   </select>
                 </div>
                 <div className="flex items-end">
@@ -347,7 +365,7 @@ const AdminDashboard: React.FC = () => {
                     onClick={() => {
                       if (!newItem.name || !newItem.price) return;
                       addMenuItem({...newItem, id: `dish-${Date.now()}`});
-                      setNewItem({ name: '', price: 0, category: 'Snacks', image: 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&q=80&w=400' });
+                      setNewItem({ name: '', price: 0, category: 'Snacks', image: DEFAULT_MENU_IMAGE });
                     }}
                     className="w-full bg-red-600 text-white font-black py-4 rounded-2xl hover:bg-red-700 transition-all active:scale-95 shadow-xl shadow-red-600/20 uppercase tracking-widest"
                   >
@@ -361,7 +379,12 @@ const AdminDashboard: React.FC = () => {
               {menu.map(item => (
                 <div key={item.id} className="bg-zinc-900 border border-zinc-800 rounded-[2rem] overflow-hidden flex flex-col group hover:border-red-600/40 transition-all shadow-xl">
                   <div className="h-40 relative">
-                    <img src={item.image} alt={item.name} className="w-full h-full object-cover grayscale opacity-60 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-700" />
+                    <img
+                      src={item.image}
+                      alt={item.name}
+                      onError={handleImageError}
+                      className="w-full h-full object-cover grayscale opacity-60 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-700"
+                    />
                     <button 
                       onClick={() => deleteMenuItem(item.id)}
                       className="absolute top-4 right-4 bg-black/80 backdrop-blur-md p-3 rounded-2xl text-zinc-400 hover:text-red-500 transition-all transform hover:scale-110 active:scale-90"

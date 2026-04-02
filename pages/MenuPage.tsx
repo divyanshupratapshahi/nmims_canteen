@@ -2,8 +2,8 @@
 import React, { useState } from 'react';
 import { useApp } from '../App';
 import { MenuItem, Category } from '../types';
-import { CATEGORIES } from '../constants';
-import { Search, Plus, Filter } from 'lucide-react';
+import { CATEGORIES, DEFAULT_MENU_IMAGE } from '../constants';
+import { Search, Plus } from 'lucide-react';
 
 const MenuPage: React.FC = () => {
   const { menu, addToCart } = useApp();
@@ -16,9 +16,15 @@ const MenuPage: React.FC = () => {
     return matchesCategory && matchesSearch;
   });
 
+  const handleImageError = (event: React.SyntheticEvent<HTMLImageElement>) => {
+    if (event.currentTarget.src !== DEFAULT_MENU_IMAGE) {
+      event.currentTarget.src = DEFAULT_MENU_IMAGE;
+    }
+  };
+
   return (
     <div className="bg-black min-h-screen py-10">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="site-container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="mb-12">
           <h1 className="text-4xl font-extrabold text-white mb-4">Our Menu</h1>
           <p className="text-zinc-400">Explore a wide variety of snacks, meals, and refreshments.</p>
@@ -37,7 +43,7 @@ const MenuPage: React.FC = () => {
             />
           </div>
           
-          <div className="flex overflow-x-auto pb-2 md:pb-0 scrollbar-hide gap-2 custom-scrollbar">
+          <div className="flex overflow-x-auto pb-2 md:pb-0 gap-2 scrollbar-hide">
             <button 
               onClick={() => setActiveCategory('All')}
               className={`px-6 py-2 rounded-full font-semibold transition-all whitespace-nowrap ${
@@ -69,6 +75,7 @@ const MenuPage: React.FC = () => {
                   <img 
                     src={item.image} 
                     alt={item.name} 
+                    onError={handleImageError}
                     className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                   />
                   <div className="absolute top-3 left-3">

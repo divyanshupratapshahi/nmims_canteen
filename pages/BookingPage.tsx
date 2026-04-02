@@ -3,13 +3,19 @@ import React, { useState } from 'react';
 import { useApp } from '../App';
 import { Calendar, Users, Clock, MessageSquare, CheckCircle } from 'lucide-react';
 
+const getTodayDate = () => {
+  const today = new Date();
+  const offset = today.getTimezoneOffset() * 60_000;
+  return new Date(today.getTime() - offset).toISOString().split('T')[0];
+};
+
 const BookingPage: React.FC = () => {
   const { bookTable } = useApp();
   const [isBooked, setIsBooked] = useState(false);
   const [formData, setFormData] = useState({
     name: '',
     phone: '',
-    date: new Date().toISOString().split('T')[0],
+    date: getTodayDate(),
     timeSlot: '12:00 PM',
     persons: 2,
     specialRequest: ''
@@ -108,6 +114,7 @@ const BookingPage: React.FC = () => {
                     type="date" 
                     className="w-full bg-black border border-zinc-800 rounded-xl p-3 pl-10 focus:border-red-600 outline-none transition-all text-sm"
                     value={formData.date}
+                    min={getTodayDate()}
                     onChange={e => setFormData({...formData, date: e.target.value})}
                   />
                 </div>
@@ -136,7 +143,12 @@ const BookingPage: React.FC = () => {
                     max="20"
                     className="w-full bg-black border border-zinc-800 rounded-xl p-3 pl-10 focus:border-red-600 outline-none transition-all text-sm"
                     value={formData.persons}
-                    onChange={e => setFormData({...formData, persons: parseInt(e.target.value)})}
+                    onChange={e =>
+                      setFormData({
+                        ...formData,
+                        persons: Number.isNaN(e.target.valueAsNumber) ? 1 : e.target.valueAsNumber,
+                      })
+                    }
                   />
                 </div>
               </div>

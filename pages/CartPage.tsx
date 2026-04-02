@@ -3,6 +3,9 @@ import React, { useState } from 'react';
 import { useApp } from '../App';
 import { Trash2, Plus, Minus, CreditCard, ShoppingBag, ArrowLeft, CheckCircle } from 'lucide-react';
 import { Link, useNavigate } from 'react-router-dom';
+import { DEFAULT_MENU_IMAGE } from '../constants';
+
+const PAYMENT_METHODS = ['UPI', 'Card', 'COD'] as const;
 
 const CartPage: React.FC = () => {
   const { cart, updateCartQuantity, removeFromCart, placeOrder } = useApp();
@@ -11,7 +14,7 @@ const CartPage: React.FC = () => {
     email: '',
     mobile: '',
     rollNumber: '',
-    paymentMethod: 'UPI' as 'UPI' | 'Card' | 'COD'
+    paymentMethod: 'UPI' as (typeof PAYMENT_METHODS)[number]
   });
   const [isOrdered, setIsOrdered] = useState(false);
   const navigate = useNavigate();
@@ -19,6 +22,12 @@ const CartPage: React.FC = () => {
   const subtotal = cart.reduce((acc, item) => acc + (item.price * item.quantity), 0);
   const taxes = Math.round(subtotal * 0.05); // 5% GST
   const total = subtotal + taxes;
+
+  const handleImageError = (event: React.SyntheticEvent<HTMLImageElement>) => {
+    if (event.currentTarget.src !== DEFAULT_MENU_IMAGE) {
+      event.currentTarget.src = DEFAULT_MENU_IMAGE;
+    }
+  };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -76,7 +85,7 @@ const CartPage: React.FC = () => {
 
   return (
     <div className="bg-black py-12">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="site-container mx-auto px-4 sm:px-6 lg:px-8">
         <h1 className="text-4xl font-bold mb-12 flex items-center gap-4">
           <ShoppingBag className="text-red-600" size={36} /> Review Your Order
         </h1>
@@ -86,7 +95,12 @@ const CartPage: React.FC = () => {
           <div className="lg:col-span-2 space-y-6">
             {cart.map(item => (
               <div key={item.id} className="bg-zinc-900/40 border border-zinc-800 rounded-2xl p-4 flex gap-6 items-center">
-                <img src={item.image} alt={item.name} className="w-24 h-24 object-cover rounded-xl" />
+                <img
+                  src={item.image}
+                  alt={item.name}
+                  onError={handleImageError}
+                  className="w-24 h-24 object-cover rounded-xl"
+                />
                 <div className="flex-grow">
                   <h3 className="text-lg font-bold">{item.name}</h3>
                   <p className="text-red-500 font-bold mb-2">₹{item.price}</p>
@@ -163,11 +177,11 @@ const CartPage: React.FC = () => {
                 <div className="pt-6 border-t border-zinc-800 mt-6">
                   <h3 className="font-bold mb-4">Payment Method</h3>
                   <div className="grid grid-cols-3 gap-3">
-                    {['UPI', 'Card', 'COD'].map((method) => (
+                    {PAYMENT_METHODS.map((method) => (
                       <button
                         key={method}
                         type="button"
-                        onClick={() => setFormData({...formData, paymentMethod: method as any})}
+                        onClick={() => setFormData({ ...formData, paymentMethod: method })}
                         className={`py-2 text-xs font-bold rounded-lg border transition-all ${
                           formData.paymentMethod === method 
                             ? 'bg-red-600 border-red-600 text-white' 

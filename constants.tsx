@@ -1,9 +1,65 @@
-
 import { MenuItem, Category } from './types';
 
 export const CATEGORIES: Category[] = [
-  'Snacks', 'Dosa', 'Pizza', 'Chinese', 'Pasta', 'Sandwiches', 'Beverages', 'Meals', 'Fries & Extras'
+  'Snacks',
+  'Dosa',
+  'Pizza',
+  'Chinese',
+  'Pasta',
+  'Sandwiches',
+  'Beverages',
+  'Meals',
+  'Fries & Extras',
 ];
+
+export const DEFAULT_MENU_IMAGE =
+  'https://upload.wikimedia.org/wikipedia/commons/4/46/Darjeeling%2C_India%2C_Indian_Thali_meal.jpg';
+
+const MENU_IMAGES = {
+  default: DEFAULT_MENU_IMAGE,
+  vadaPav: 'https://upload.wikimedia.org/wikipedia/commons/4/4e/Vada_Pav-Indian_street_food.JPG',
+  samosa: 'https://upload.wikimedia.org/wikipedia/commons/c/cf/Samosa-and-Chatni.jpg',
+  breadPakoda:
+    'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b0/Bread_Pakora_%28Stuffed_with_Mashed-Spicy_Potatoes%29.JPG/500px-Bread_Pakora_%28Stuffed_with_Mashed-Spicy_Potatoes%29.JPG',
+  upma: 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/86/A_photo_of_Upma.jpg/500px-A_photo_of_Upma.jpg',
+  sheera: 'https://upload.wikimedia.org/wikipedia/commons/c/c0/Sooji_Halwa_%28Semolina_Pudding%29.JPG',
+  poha: 'https://upload.wikimedia.org/wikipedia/commons/e/e2/Poha_made_from_beaten_rice_in_Madhya_Pradesh%2C_India.jpg',
+  frankie: 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/fc/Kolkata_Rolls.jpg/500px-Kolkata_Rolls.jpg',
+  idli: 'https://upload.wikimedia.org/wikipedia/commons/1/11/Idli_Sambar.JPG',
+  pavBhaji: 'https://upload.wikimedia.org/wikipedia/commons/4/4a/Bambayya_Pav_bhaji.jpg',
+  sadaDosa: 'https://upload.wikimedia.org/wikipedia/commons/e/e4/Sada_dosa.jpg',
+  masalaDosa: 'https://upload.wikimedia.org/wikipedia/commons/5/58/Masala_dosa.jpg',
+  cheeseDosa: 'https://upload.wikimedia.org/wikipedia/commons/3/36/Cheese_dosa.jpg',
+  pizza: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/91/Pizza-3007395.jpg/500px-Pizza-3007395.jpg',
+  chillyPotato: 'https://upload.wikimedia.org/wikipedia/commons/8/89/Chilli_Potato.jpg',
+  hakkaNoodles: 'https://upload.wikimedia.org/wikipedia/commons/e/ec/Veg_Hakka_Noodles.jpg',
+  schezwanNoodles: 'https://www.cookwithmanali.com/wp-content/uploads/2021/08/Schezwan-Noodles-500x500.jpg',
+  friedRice: 'https://upload.wikimedia.org/wikipedia/commons/8/82/Vegetable_fried_rice.jpg',
+  manchurian: 'https://upload.wikimedia.org/wikipedia/commons/b/bc/Manchurian.jpg',
+  momos: 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a1/Momo_nepal.jpg/500px-Momo_nepal.jpg',
+  redSaucePasta: 'https://upload.wikimedia.org/wikipedia/commons/d/d0/Red_sauce_pasta.jpg',
+  whiteSaucePasta: 'https://upload.wikimedia.org/wikipedia/commons/9/9d/White_sauce_pasta.jpg',
+  pinkSaucePasta: 'https://upload.wikimedia.org/wikipedia/commons/5/57/Rose_Pasta.jpg',
+  vegSandwich: 'https://upload.wikimedia.org/wikipedia/commons/f/fb/Veg_sandwich.jpg',
+  grillSandwich: 'https://upload.wikimedia.org/wikipedia/commons/8/89/Grilled_cheese_sandwich.jpg',
+  tea: 'https://upload.wikimedia.org/wikipedia/commons/c/ce/Masala_chai.jpg',
+  hotCoffee: 'https://upload.wikimedia.org/wikipedia/commons/5/5e/Hot_coffee.jpg',
+  coldCoffee: 'https://palatesdesire.com/wp-content/uploads/2022/02/iced-coffee-recipe@palates-desire-4.jpg',
+  strawberryMilkshake: 'https://upload.wikimedia.org/wikipedia/commons/7/72/Strawberry_milkshake.jpg',
+  bananaMilkshake: 'https://www.alphafoodie.com/wp-content/uploads/2024/05/Easy-5-Minute-Banana-Milkshake-square.jpeg',
+  oreoMilkshake: 'https://upload.wikimedia.org/wikipedia/commons/2/23/Oreo_Milkshake.JPG',
+  lassi: 'https://upload.wikimedia.org/wikipedia/commons/4/43/Banarasi_Lassi.jpg',
+  chaas: 'https://www.vegrecipesofindia.com/wp-content/uploads/2021/05/chaas-recipe-2.jpg',
+  lemonJuice:
+    'https://upload.wikimedia.org/wikipedia/commons/thumb/1/10/Lemonade_-_27682817724.jpg/500px-Lemonade_-_27682817724.jpg',
+  meal: DEFAULT_MENU_IMAGE,
+  alooParatha: 'https://upload.wikimedia.org/wikipedia/commons/f/ff/ALOO_PARATHA.jpg',
+  paratha:
+    'https://upload.wikimedia.org/wikipedia/commons/thumb/1/1e/Triangle_paratha_%28cropped%29.JPG/500px-Triangle_paratha_%28cropped%29.JPG',
+  choleBhature: 'https://upload.wikimedia.org/wikipedia/commons/9/9e/Chole_Bhature_from_Nagpur.JPG',
+  fries: 'https://upload.wikimedia.org/wikipedia/commons/8/83/French_Fries.JPG',
+  curd: 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b8/Joghurt.jpg/500px-Joghurt.jpg',
+} as const;
 
 export const INITIAL_MENU: MenuItem[] = [
   // Snacks
@@ -21,7 +77,8 @@ export const INITIAL_MENU: MenuItem[] = [
 
   // Dosa
   { id: 'd1', name: 'Sada Dosa', price: 40, category: 'Dosa', image: 'https://www.vegrecipesofindia.com/wp-content/uploads/2021/07/dosa-recipe-3.jpg' },
-  { id: 'd2', name: 'Masala Dosa', price: 46, category: 'Dosa', image: 'https://ranveerbrar.com/wp-content/uploads/2021/02/Masala-dosa-scaled-scaled.jpg' },  { id: 'd5', name: 'Cheese Sada Dosa', price: 46, category: 'Dosa', image: 'https://images.unsplash.com/photo-1589301760014-d929f3979dbc?auto=format&fit=crop&q=80&w=400' },
+  { id: 'd2', name: 'Masala Dosa', price: 46, category: 'Dosa', image: 'https://ranveerbrar.com/wp-content/uploads/2021/02/Masala-dosa-scaled-scaled.jpg' },  
+  { id: 'd5', name: 'Cheese Sada Dosa', price: 46, category: 'Dosa', image: 'https://www.yummyoyummy.com/wp-content/uploads/2015/07/Cheese-vegetable-dosa1.jpg' },
   { id: 'd6', name: 'Cheese Masala Dosa', price: 60, category: 'Dosa', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTtP1GXUUaEvEyDAMWr277FFuvyc3Hcm-HSug&s' },
 
   // Pizza
@@ -35,45 +92,42 @@ export const INITIAL_MENU: MenuItem[] = [
   { id: 'c3', name: 'Schezwan Noodles', price: 92, category: 'Chinese', image: 'https://www.cookwithmanali.com/wp-content/uploads/2021/08/Schezwan-Noodles-500x500.jpg' },
   { id: 'c4', name: 'Triple Noodles', price: 92, category: 'Chinese', image: 'https://i.redd.it/i-ate-chicken-triple-schezwan-noodles-v0-b51hwxq8dbfe1.jpg?width=3024&format=pjpg&auto=webp&s=7db5788264219aa85e74b45c677b621df6f4f986' },
   { id: 'c5', name: 'Fried Rice', price: 80, category: 'Chinese', image: 'https://www.licious.in/blog/wp-content/uploads/2022/12/Shutterstock_1043177881.jpg' },
-  { id: 'c6', name: 'Veg Manchurian', price: 80, category: 'Chinese', image: 'https://images.unsplash.com/photo-1619604176701-a0d31487e7fd?auto=format&fit=crop&q=80&w=400' },
-  { id: 'c7', name: 'Veg Momos', price: 85, category: 'Chinese', image: 'https://images.unsplash.com/photo-1625220194771-7ebdea0b70b9?auto=format&fit=crop&q=80&w=400' },
-  { id: 'c8', name: 'Paneer Momos', price: 95, category: 'Chinese', image: 'https://images.unsplash.com/photo-1625220194771-7ebdea0b70b9?auto=format&fit=crop&q=80&w=400' },
+  
+  { id: 'c6', name: 'Veg Manchurian', price: 80, category: 'Chinese', image: MENU_IMAGES.manchurian },
+  { id: 'c7', name: 'Veg Momos', price: 85, category: 'Chinese', image: MENU_IMAGES.momos },
+  { id: 'c8', name: 'Paneer Momos', price: 95, category: 'Chinese', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR4_-05HjT8DlvkSk4C7iDC-UDdjGMfaDcsRg&s' },
 
   // Pasta
-  { id: 'pa1', name: 'Red Sauce Pasta', price: 115, category: 'Pasta', image: 'https://images.unsplash.com/photo-1611270624018-b83584ee4451?auto=format&fit=crop&q=80&w=400' },
-  { id: 'pa2', name: 'White Sauce Pasta', price: 115, category: 'Pasta', image: 'https://images.unsplash.com/photo-1645112481338-356291771987?auto=format&fit=crop&q=80&w=400' },
-  { id: 'pa3', name: 'Pink Sauce Pasta', price: 115, category: 'Pasta', image: 'https://images.unsplash.com/photo-1551183053-bf91a1d81141?auto=format&fit=crop&q=80&w=400' },
+  { id: 'pa1', name: 'Red Sauce Pasta', price: 115, category: 'Pasta', image: MENU_IMAGES.redSaucePasta },
+  { id: 'pa2', name: 'White Sauce Pasta', price: 115, category: 'Pasta', image: MENU_IMAGES.whiteSaucePasta },
+  { id: 'pa3', name: 'Pink Sauce Pasta', price: 115, category: 'Pasta', image: MENU_IMAGES.pinkSaucePasta },
 
   // Sandwiches
-  { id: 'sa1', name: 'Veg Sandwich', price: 46, category: 'Sandwiches', image: 'https://images.unsplash.com/photo-1528735602780-2552fd46c7af?auto=format&fit=crop&q=80&w=400' },
-  { id: 'sa2', name: 'Veg Grill Sandwich', price: 57, category: 'Sandwiches', image: 'https://images.unsplash.com/photo-1528735602780-2552fd46c7af?auto=format&fit=crop&q=80&w=400' },
-  { id: 'sa3', name: 'Cheese Sandwich', price: 46, category: 'Sandwiches', image: 'https://images.unsplash.com/photo-1528735602780-2552fd46c7af?auto=format&fit=crop&q=80&w=400' },
-  { id: 'sa4', name: 'Cheese Grill Sandwich', price: 51, category: 'Sandwiches', image: 'https://images.unsplash.com/photo-1528735602780-2552fd46c7af?auto=format&fit=crop&q=80&w=400' },
-  { id: 'sa5', name: 'Paneer Cheese Corn Grill', price: 80, category: 'Sandwiches', image: 'https://images.unsplash.com/photo-1528735602780-2552fd46c7af?auto=format&fit=crop&q=80&w=400' },
-  { id: 'sa6', name: 'Aloo Masala Sandwich', price: 40, category: 'Sandwiches', image: 'https://images.unsplash.com/photo-1528735602780-2552fd46c7af?auto=format&fit=crop&q=80&w=400' },
+  { id: 'sa1', name: 'Veg Sandwich', price: 46, category: 'Sandwiches', image: MENU_IMAGES.vegSandwich },
+  { id: 'sa4', name: 'Cheese Grill Sandwich', price: 51, category: 'Sandwiches', image: MENU_IMAGES.grillSandwich },
+  { id: 'sa6', name: 'Aloo Masala Sandwich', price: 40, category: 'Sandwiches', image: 'https://i.ytimg.com/vi/wbc62-6Gq9I/hq720.jpg?sqp=-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD&rs=AOn4CLDnYi1mbiEwGyXGeO22bi5HOW3a_g' },
 
   // Beverages
-  { id: 'b1', name: 'Tea', price: 19, category: 'Beverages', image: 'https://images.unsplash.com/photo-1544787210-2213d84ad960?auto=format&fit=crop&q=80&w=400' },
-  { id: 'b2', name: 'Hot Coffee', price: 19, category: 'Beverages', image: 'https://images.unsplash.com/photo-1541167760496-162955ed8a9f?auto=format&fit=crop&q=80&w=400' },
-  { id: 'b3', name: 'Cold Coffee', price: 57, category: 'Beverages', image: 'https://images.unsplash.com/photo-1461023058943-07fcbe16d735?auto=format&fit=crop&q=80&w=400' },
-  { id: 'b4', name: 'Strawberry Milkshake', price: 80, category: 'Beverages', image: 'https://images.unsplash.com/photo-1553855621-c96aa45f190a?auto=format&fit=crop&q=80&w=400' },
-  { id: 'b5', name: 'Banana Milkshake', price: 50, category: 'Beverages', image: 'https://images.unsplash.com/photo-1553173154-5622b1022f45?auto=format&fit=crop&q=80&w=400' },
-  { id: 'b6', name: 'Oreo Milkshake', price: 70, category: 'Beverages', image: 'https://images.unsplash.com/photo-1572490122747-3968b75cc699?auto=format&fit=crop&q=80&w=400' },
-  { id: 'b7', name: 'Lassi', price: 34, category: 'Beverages', image: 'https://images.unsplash.com/photo-1553173154-5622b1022f45?auto=format&fit=crop&q=80&w=400' },
-  { id: 'b8', name: 'Chaas', price: 20, category: 'Beverages', image: 'https://images.unsplash.com/photo-1553173154-5622b1022f45?auto=format&fit=crop&q=80&w=400' },
-  { id: 'b9', name: 'Lemon Juice', price: 20, category: 'Beverages', image: 'https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?auto=format&fit=crop&q=80&w=400' },
-  { id: 'b10', name: 'Butter Milk', price: 20, category: 'Beverages', image: 'https://images.unsplash.com/photo-1553173154-5622b1022f45?auto=format&fit=crop&q=80&w=400' },
+  { id: 'b1', name: 'Tea', price: 19, category: 'Beverages', image: MENU_IMAGES.tea },
+  { id: 'b2', name: 'Hot Coffee', price: 19, category: 'Beverages', image: MENU_IMAGES.hotCoffee },
+  { id: 'b3', name: 'Cold Coffee', price: 57, category: 'Beverages', image: MENU_IMAGES.coldCoffee },
+  { id: 'b4', name: 'Strawberry Milkshake', price: 80, category: 'Beverages', image: MENU_IMAGES.strawberryMilkshake },
+  { id: 'b5', name: 'Banana Milkshake', price: 50, category: 'Beverages', image: MENU_IMAGES.bananaMilkshake },
+  { id: 'b6', name: 'Oreo Milkshake', price: 70, category: 'Beverages', image: MENU_IMAGES.oreoMilkshake },
+  { id: 'b7', name: 'Lassi', price: 34, category: 'Beverages', image: MENU_IMAGES.lassi },
+  { id: 'b8', name: 'Chaas', price: 20, category: 'Beverages', image: 'https://cdn3.foodviva.com/static-content/food-images/healthy-recipes/masala-chaas/masala-chaas.jpg' },
+  { id: 'b9', name: 'Lemon Juice', price: 20, category: 'Beverages', image: MENU_IMAGES.lemonJuice },
+  { id: 'b10', name: 'Butter Milk', price: 20, category: 'Beverages', image: MENU_IMAGES.chaas },
 
   // Meals
-  { id: 'm1', name: 'Lunch Meal', price: 92, category: 'Meals', image: 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&q=80&w=400' },
-  { id: 'm2', name: 'Half Meal', price: 70, category: 'Meals', image: 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&q=80&w=400' },
-  { id: 'm3', name: 'Aloo Paratha', price: 46, category: 'Meals', image: 'https://images.unsplash.com/photo-1565557623262-b51c2513a641?auto=format&fit=crop&q=80&w=400' },
-  { id: 'm4', name: 'Paneer Paratha', price: 70, category: 'Meals', image: 'https://images.unsplash.com/photo-1565557623262-b51c2513a641?auto=format&fit=crop&q=80&w=400' },
-  { id: 'm5', name: 'Paneer Tikka Paratha', price: 120, category: 'Meals', image: 'https://images.unsplash.com/photo-1565557623262-b51c2513a641?auto=format&fit=crop&q=80&w=400' },
-  { id: 'm6', name: 'Chhola Bhatura', price: 80, category: 'Meals', image: 'https://images.unsplash.com/photo-1626132646529-5006375325d7?auto=format&fit=crop&q=80&w=400' },
+  { id: 'm1', name: 'Lunch Meal', price: 92, category: 'Meals', image: MENU_IMAGES.meal },
+  { id: 'm3', name: 'Aloo Paratha', price: 46, category: 'Meals', image: MENU_IMAGES.alooParatha },
+  { id: 'm4', name: 'Paneer Paratha', price: 70, category: 'Meals', image: MENU_IMAGES.paratha },
+
+  { id: 'm6', name: 'Chhola Bhatura', price: 80, category: 'Meals', image: MENU_IMAGES.choleBhature },
 
   // Fries & Extras
-  { id: 'f1', name: 'Salted French Fries', price: 60, category: 'Fries & Extras', image: 'https://images.unsplash.com/photo-1630384066252-11746a5045aa?auto=format&fit=crop&q=80&w=400' },
-  { id: 'f2', name: 'Peri Peri Fries', price: 70, category: 'Fries & Extras', image: 'https://images.unsplash.com/photo-1630384066252-11746a5045aa?auto=format&fit=crop&q=80&w=400' },
-  { id: 'f3', name: 'Curd', price: 30, category: 'Fries & Extras', image: 'https://images.unsplash.com/photo-1553173154-5622b1022f45?auto=format&fit=crop&q=80&w=400' },
+  { id: 'f1', name: 'Salted French Fries', price: 60, category: 'Fries & Extras', image: MENU_IMAGES.fries },
+  { id: 'f2', name: 'Peri Peri Fries', price: 70, category: 'Fries & Extras', image: 'https://www.foodbanjo.com/wp-content/uploads/2022/07/peri-peri-french-fries-8231-1200fp.jpg}' },
+  { id: 'f3', name: 'Curd', price: 30, category: 'Fries & Extras', image: MENU_IMAGES.curd },
 ];
