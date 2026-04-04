@@ -229,7 +229,7 @@ export default function App() {
                 </div>
               </div>
               <div className="mt-12 pt-8 border-t border-zinc-900 text-center text-zinc-600 text-sm">
-                &copy; {new Date().getFullYear()} NMIMS Navi Mumbai Canteen. All rights reserved.
+                &copy; {new Date().getFullYear()} NMIMS Navi Mumbai Canteen. All rights reserved. | Developed by Divyanshu Shahi
               </div>
             </div>
           </footer>
